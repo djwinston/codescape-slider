@@ -15,5 +15,8 @@ export default DireflowComponent.create({
         },
       },
     },
+    {
+      name: 'react-slick'
+    }   
   ],
 });

@@ -1,7 +1,40 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { EventContext, Styled } from 'direflow-component';
-import styles from './App.css';
+import styles from '../../style/index.scss';
+import Slider from "react-slick";
+
+const SimpleSlider = () => {
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+  return (
+    <Slider {...settings}>
+      <div>
+        <h3>1</h3>
+      </div>
+      <div>
+        <h3>2</h3>
+      </div>
+      <div>
+        <h3>3</h3>
+      </div>
+      <div>
+        <h3>4</h3>
+      </div>
+      <div>
+        <h3>5</h3>
+      </div>
+      <div>
+        <h3>6</h3>
+      </div>
+    </Slider>
+  );
+}
 
 const App = (props) => {
   const dispatch = useContext(EventContext);
@@ -17,8 +50,9 @@ const App = (props) => {
     </div>
   ));
 
-  return (
+  return (<>
     <Styled styles={styles}>
+    {/* <SimpleSlider/> */}
       <div className='app'>
         <div className='top'>
           <div className='header-image' />
@@ -26,12 +60,13 @@ const App = (props) => {
         <div className='bottom'>
           <div className='header-title'>{props.componentTitle}</div>
           <div>{renderSampleList}</div>
-          <button className='button' onClick={handleClick}>
+          <button className='button is-primary is-light' onClick={handleClick}>
             Click me!
           </button>
         </div>
       </div>
     </Styled>
+    </>
   );
 };
 
