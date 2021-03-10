@@ -1,74 +1,73 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { EventContext, Styled } from 'direflow-component';
-import styles from '../../style/index.scss';
-import Slider from "react-slick";
-
-const SimpleSlider = () => {
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
-  return (
-    <Slider {...settings}>
-      <div>
-        <h3>1</h3>
-      </div>
-      <div>
-        <h3>2</h3>
-      </div>
-      <div>
-        <h3>3</h3>
-      </div>
-      <div>
-        <h3>4</h3>
-      </div>
-      <div>
-        <h3>5</h3>
-      </div>
-      <div>
-        <h3>6</h3>
-      </div>
-    </Slider>
-  );
-}
+import React from 'react'
+import PropTypes from 'prop-types'
+import { /* EventContext, */ Styled, useExternalSource } from 'direflow-component'
+import theme from '../../style/index.scss'
+import bulmaCarousel from 'bulma-carousel/dist/js/bulma-carousel.min.js'
 
 const App = (props) => {
-  const dispatch = useContext(EventContext);
 
-  const handleClick = () => {
-    const event = new Event('my-event');
-    dispatch(event);
-  };
+  const hasLoaded = useExternalSource('https://code.jquery.com/jquery-3.3.1.slim.min.js');
+  if (!hasLoaded) {
+    return null;
+  } else {console.log(hasLoaded);
+  }
+  // const dispatch = useContext(EventContext);
 
-  const renderSampleList = props.sampleList.map((sample) => (
-    <div key={sample} className='sample-text'>
-      → {sample}
-    </div>
-  ));
+  // const handleClick = () => {
+  //   const event = new Event('my-event');
+  //   dispatch(event);
+  // };
 
-  return (<>
-    <Styled styles={styles}>
-    {/* <SimpleSlider/> */}
-      <div className='app'>
-        <div className='top'>
-          <div className='header-image' />
-        </div>
-        <div className='bottom'>
-          <div className='header-title'>{props.componentTitle}</div>
-          <div>{renderSampleList}</div>
-          <button className='button is-primary is-light' onClick={handleClick}>
-            Click me!
-          </button>
-        </div>
+  // const renderSampleList = props.sampleList.map((sample) => (
+  //   <div key={sample} className='sample-text'>
+  //     → {sample}
+  //   </div>
+  // ));
+  // Initialize all elements with carousel class.
+
+  // Initialize all div with carousel class
+  const options = {
+    slidesToScroll: 1,
+    slidesToShow: 4,
+  }
+  const doc = document.querySelector('.carousel')
+  var carousels = bulmaCarousel.attach('.carousel', options)
+  console.log(carousels, doc)
+
+  // Loop on each carousel initialized
+  for (var i = 0; i < carousels.length; i++) {
+    // Add listener to  event
+    carousels[i].on('before:show', (state) => {
+      console.log(state)
+    })
+  }
+
+  // Access to bulmaCarousel instance of an element
+  var element = document.querySelector('.carousel')
+  if (element && element.bulmaCarousel) {
+    // bulmaCarousel instance is available as element.bulmaCarousel
+    element.bulmaCarousel.on('before-show', function (state) {
+      console.log(state)
+    })
+  }
+  return (
+    <Styled styles={theme}>
+      <div className="app">
+        <div>{props.componentTitle}</div>
+        <button className="button is-primary">Button</button>
+        <section className="section slider">
+          <div className="container">
+            <div id="carousel-demo" className="carousel">
+              <div className="item-1">xxx</div>
+              <div className="item-2">xxx</div>
+              <div className="item-3">xxx</div>
+            </div>
+          </div>
+        </section>
       </div>
     </Styled>
-    </>
-  );
-};
+  )
+}
 
 App.defaultProps = {
   componentTitle: 'Codescape Slider',
@@ -82,6 +81,6 @@ App.defaultProps = {
 App.propTypes = {
   componentTitle: PropTypes.string,
   sampleList: PropTypes.array,
-};
+}
 
-export default App;
+export default App

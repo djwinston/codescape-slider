@@ -5,6 +5,7 @@ export default DireflowComponent.create({
   component: App,
   configuration: {
     tagname: 'codescape-slider',
+    useShadow: false,
   },
   plugins: [
     {
@@ -14,9 +15,6 @@ export default DireflowComponent.create({
           families: ['Advent Pro', 'Noto Sans JP'],
         },
       },
-    },
-    {
-      name: 'react-slick'
     }   
   ],
 });
