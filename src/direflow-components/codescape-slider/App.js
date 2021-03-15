@@ -7,7 +7,8 @@ import theme from '../../style/index.scss'
 import Carousel from 'react-simply-carousel'
 import { AxiosProvider, Get } from 'react-axios'
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 const TOKEN =
   'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpYXQiOiAxNjE1ODA1NDg2LjAsICJ1c2VyX2dyb3VwcyI6IHsiMyI6ICJsZWFybmVyIiwgIjYiOiAiYXNzZXNzZWUifSwgInVzZXIiOiB7ImZpcnN0X25hbWUiOiAiMSIsICJsYXN0X25hbWUiOiAiMSIsICJyZWdpc3RyYXRpb25faWQiOiAiIiwgImVtYWlsIjogImIxQHlvcG1haWwuY29tIiwgInJlc2V0X3Bhc3N3b3JkX2tleSI6ICIiLCAicmVnaXN0cmF0aW9uX2tleSI6ICIiLCAiaWQiOiAzNH0sICJleHAiOiAxNjE1ODkxODg2LjAsICJobWFjX2tleSI6ICI0MjA1OGNkNi0xNmVmLTQwZTYtYTA3YS05M2Q2YTg1MzBjMmIifQ.vxIEnmdxzY6poZajfEU3ADtOu4Hophk8y5-cqpabR10'
@@ -49,6 +50,17 @@ const axiosInstance = axios.create({
   headers: { Authorization: `Bearer ${TOKEN}` },
 })
 
+const ProgressProvider = ({ valueStart, valueEnd, children }) => {
+  const [value, setValue] = React.useState(valueStart)
+  React.useEffect(() => {
+    setTimeout(() => {
+      setValue(valueEnd)
+    }, 500)
+  }, [valueEnd])
+
+  return children(value)
+}
+
 const AuthError = () => {
   return (
     <div>
@@ -85,11 +97,24 @@ const RoleScore = ({ title }) => {
 }
 
 const CategoryContainer = ({ category }) => {
+  const { title, result } = category.assessment_plan
+  const formatResult = Math.round(result)
   return (
     <div className="category-container">
-      <div className="category-title">{category.assessment_plan.title}</div>
+      <div className="category-title">{title}</div>
       <div className="category-score">
-        <div className="ring">{category.assessment_plan.result}</div>
+        <div className="ring">
+          <ProgressProvider valueStart={0} valueEnd={formatResult}>
+            {(value) => (
+              <CircularProgressbar
+                viewBox="0 0 170 170"
+                value={value}
+                text={`${formatResult}%`}
+                styles={buildStyles({ pathTransitionDuration: 1.5 })}
+              />
+            )}
+          </ProgressProvider>
+        </div>
       </div>
     </div>
   )
@@ -100,7 +125,7 @@ const Slide = ({ role }) => {
     <div style={{ width: 640, height: 480 }}>
       <RoleScore title={role.title} />
       <div className="category-list">
-        {role.categories.map((category, index) => (
+        {role.categories.map((category) => (
           <CategoryContainer key={uuidv4()} category={category} />
         ))}
       </div>
@@ -108,7 +133,7 @@ const Slide = ({ role }) => {
   )
 }
 
-const App = (props) => {
+const App = (/* props */) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0)
 
   const setActiveSlideIndexAction = (newActiveSlideIndex) => {
@@ -121,7 +146,7 @@ const App = (props) => {
         <div className="role-container">
           <AxiosProvider instance={axiosInstance}>
             <Get url={CODESCAPE_API}>
-              {(error, response, isLoading, makeRequest, axios) => {
+              {(error, response, isLoading /* , makeRequest, axios */) => {
                 if (error) {
                   return <AuthError />
                 } else if (isLoading) {
@@ -159,20 +184,6 @@ const App = (props) => {
   )
 }
 
-App.defaultProps = {
-  componentTitle: 'Codescape Slider',
-  sampleList: [
-    'Create with React',
-    'Build as Web Component',
-    'Use it anywhere!',
-  ],
-}
-
-App.propTypes = {
-  componentTitle: PropTypes.string,
-  sampleList: PropTypes.array,
-}
-
 RoleScore.propTypes = { title: PropTypes.string }
 
 Slide.propTypes = {
@@ -181,12 +192,29 @@ Slide.propTypes = {
     title: PropTypes.string,
     image_url: PropTypes.string,
     description: PropTypes.string,
-    categories: PropTypes.any,
+    categories: PropTypes.object,
   }),
+}
+
+CategoryContainer.propTypes = {
+  category: PropTypes.object,
 }
 
 export default App
 
+// App.defaultProps = {
+//   componentTitle: 'Codescape Slider',
+//   sampleList: [
+//     'Create with React',
+//     'Build as Web Component',
+//     'Use it anywhere!',
+//   ],
+// }
+
+// App.propTypes = {
+//   componentTitle: PropTypes.string,
+//   sampleList: PropTypes.array,
+// }
 /* <div>
 {response.data.status.code}
 {'success'}

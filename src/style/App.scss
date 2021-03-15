@@ -90,3 +90,12 @@
     display: none;
   }
 }
+.ring {
+  width: 100px;
+  height: 100px;
+  .CircularProgressbar {
+    &-path {
+      stroke: red;
+    }
+  }
+}
