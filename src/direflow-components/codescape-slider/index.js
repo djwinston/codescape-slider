@@ -5,7 +5,7 @@ export default DireflowComponent.create({
   component: App,
   configuration: {
     tagname: 'codescape-slider',
-    useShadow: false,
+    useShadow: true,
   },
   plugins: [
     {
