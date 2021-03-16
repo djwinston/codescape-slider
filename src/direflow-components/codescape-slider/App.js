@@ -9,9 +9,12 @@ import { AxiosProvider, Get } from 'react-axios'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import Cookies from 'js-cookie'
+
+const COOKIE_TOKEN = Cookies.get('Codescape_Token')
 
 const TOKEN =
-  'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpYXQiOiAxNjE1ODA1NDg2LjAsICJ1c2VyX2dyb3VwcyI6IHsiMyI6ICJsZWFybmVyIiwgIjYiOiAiYXNzZXNzZWUifSwgInVzZXIiOiB7ImZpcnN0X25hbWUiOiAiMSIsICJsYXN0X25hbWUiOiAiMSIsICJyZWdpc3RyYXRpb25faWQiOiAiIiwgImVtYWlsIjogImIxQHlvcG1haWwuY29tIiwgInJlc2V0X3Bhc3N3b3JkX2tleSI6ICIiLCAicmVnaXN0cmF0aW9uX2tleSI6ICIiLCAiaWQiOiAzNH0sICJleHAiOiAxNjE1ODkxODg2LjAsICJobWFjX2tleSI6ICI0MjA1OGNkNi0xNmVmLTQwZTYtYTA3YS05M2Q2YTg1MzBjMmIifQ.vxIEnmdxzY6poZajfEU3ADtOu4Hophk8y5-cqpabR10'
+  'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJvcmlnX2lhdCI6IDE2MTU5MDA2ODkuMCwgInVzZXJfZ3JvdXBzIjogeyIzIjogImxlYXJuZXIiLCAiNiI6ICJhc3Nlc3NlZSJ9LCAiaG1hY19rZXkiOiAiOWIxNWUyNTUtY2JjOC00N2M1LWFjOTYtNmE0Njg3ODg4NDMxIiwgInVzZXIiOiB7ImZpcnN0X25hbWUiOiAiMSIsICJsYXN0X25hbWUiOiAiMSIsICJyZWdpc3RyYXRpb25faWQiOiAiIiwgImVtYWlsIjogImIxQHlvcG1haWwuY29tIiwgInJlc2V0X3Bhc3N3b3JkX2tleSI6ICIiLCAicmVnaXN0cmF0aW9uX2tleSI6ICIiLCAiaWQiOiAzNH0sICJleHAiOiAxNjE1OTAxODgxLjAsICJpYXQiOiAxNjE1OTAxNTgxLjB9.sg0_HWtpRYicCrRSPjcaoWlk5xPX5LrsPjzrRawVkyA'
 const CODESCAPE_API =
   'https://dev.codeuntapped.com/jmc/flask-server/api/v1/virtualcoach/user-roles'
 
@@ -42,20 +45,21 @@ const SLIDER_CONFIG = {
     },
     className: 'button is-info',
   },
+  responsive: [{minWidth: 768, maxWidth: 992, itemsToShow: 3}, {maxWidth: 767, itemsToShow: 1}]
 }
 
 const axiosInstance = axios.create({
   // baseURL: '/api/',
   timeout: 2000,
-  headers: { Authorization: `Bearer ${TOKEN}` },
+  headers: { Authorization: `Bearer ${TOKEN /* || COOKIE_TOKEN */}` },
 })
 
 const ProgressProvider = ({ valueStart, valueEnd, children }) => {
   const [value, setValue] = React.useState(valueStart)
   React.useEffect(() => {
-    setTimeout(() => {
-      setValue(valueEnd)
-    }, 500)
+    setValue(valueEnd)
+    // setTimeout(() => {
+    // }, 500)
   }, [valueEnd])
 
   return children(value)
@@ -82,14 +86,14 @@ const AuthError = () => {
   )
 }
 
-const RoleScore = ({ title }) => {
+const RoleScore = ({ title, score }) => {
   return (
     <div className="role-score">
       <div>
         <h1>{title}</h1>
       </div>
       <div className="total">
-        <div className="totalCounter">100%</div>
+        <div className="totalCounter">{score}%</div>
         <div>out of 100</div>
       </div>
     </div>
@@ -121,9 +125,15 @@ const CategoryContainer = ({ category }) => {
 }
 
 const Slide = ({ role }) => {
+  let totalScore = 0
+  role.categories.forEach((cat) => {
+    const { result } = cat.assessment_plan
+    totalScore += result
+  })
+
   return (
-    <div style={{ width: 640, height: 480 }}>
-      <RoleScore title={role.title} />
+    <div className="slide" style={{ width: 'max(50%, 1100px)', height: 'auto' }}>
+      <RoleScore title={role.title} score={Math.round(totalScore)} />
       <div className="category-list">
         {role.categories.map((category) => (
           <CategoryContainer key={uuidv4()} category={category} />
@@ -152,11 +162,13 @@ const App = (/* props */) => {
                 } else if (isLoading) {
                   return <div>Loading...</div>
                 } else if (response !== null) {
-                  // console.log('data', response.data.data)
+                  // console.log('data', response.data.data.roles)
 
                   const { roles } = response.data.data
+
                   return (
                     <Carousel
+                      className="carousel"
                       activeSlideIndex={activeSlideIndex}
                       onRequestChange={setActiveSlideIndexAction}
                       itemsToShow={1}
@@ -167,6 +179,7 @@ const App = (/* props */) => {
                       containerProps={SLIDER_CONFIG.containerProps}
                       forwardBtnProps={SLIDER_CONFIG.forwardBtnProps}
                       backwardBtnProps={SLIDER_CONFIG.backwardBtnProps}
+                      // responsiveProps={SLIDER_CONFIG.responsive}
                     >
                       {roles.map((role) => {
                         return <Slide key={role._id} role={role} />
@@ -184,7 +197,7 @@ const App = (/* props */) => {
   )
 }
 
-RoleScore.propTypes = { title: PropTypes.string }
+RoleScore.propTypes = { title: PropTypes.string, score: PropTypes.number }
 
 Slide.propTypes = {
   role: PropTypes.shape({

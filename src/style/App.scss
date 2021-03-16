@@ -8,14 +8,15 @@
   --white-smoke: #f6f9f6;
   --sham-rock: #1cd991;
   font-family: 'Roboto';
-  color: var(--grey);
+  color: var(--grey);  
 }
 
 #codescape-container > div > div > div > div.category-title {
   text-align: center;
 }
 
-.role-container {
+.role-container > div {
+  justify-content: center !important;
 }
 
 .category-list {
