@@ -96,7 +96,7 @@
   height: 100px;
   .CircularProgressbar {
     &-path {
-      stroke: red;
+      stroke: var(--bismark);
     }
   }
 }
