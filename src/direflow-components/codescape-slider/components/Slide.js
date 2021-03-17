@@ -15,7 +15,7 @@ const Slide = ({ role }) => {
   return (
     <div
       className="slide"
-      style={{ width: 'max(50%, 1100px)', height: 'auto' }}
+      // style={{ width: 'max(50%, 1100px)', height: 'auto' }}
     >
       <RoleScore title={role.title} score={Math.round(totalScore)} />
       <div className="category-list">
