@@ -1,127 +1,73 @@
-.awssld__content {
-  display: block;
-}
 #codescape-container {
-  --dim-gray: #676767;
-  --bismark: #4a6572;
-  --grey: #838383;
-  --light-grey: #d3d2d2;
-  --whisper: #eeeeee;
-  --summer-sky: #1a9ddd;
-  --white-smoke: #f6f9f6;
-  --sham-rock: #1cd991;
   font-family: 'Roboto';
-  color: var(--grey);  
-}
-
-.awssld {
-
-  --slider-height-percentage: 30%;
-  --slider-transition-duration: 700ms;
-  --organic-arrow-thickness: 6px;
-  --organic-arrow-border-radius: 30px;
-  --organic-arrow-height: 45px;
-  --organic-arrow-color: #26456f;
-  --control-button-width: 10%;
-  --control-button-height: 25%;
-  --control-button-background: transparent;
-  --control-bullet-color: #2d5182;
-  --control-bullet-active-color: #26456f;
-  --loader-bar-color: #851515;
-  --loader-bar-height: 12px;
-  --content-background-color: transparent;
+  color: $grey;
+  .slide-container {
+    .slide {
+      .role-score {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 1em;
+        padding: 2em;
+        div:first-child {
+          display: inline-flex;
+          align-items: center;
+        }
+        div:first-child > h1 {
+          margin: 0;
+          font-weight: 300;
+          font-size: 2.5em;
+        }
+        div > div {
+          color: #fff;
+          font-size: 30px;
+          align-self: center;
+        }
+        div > div:last-child {
+          background-color: $whisper;
+          color: $bismark;
+          line-height: 3em;
+          border-radius: 45px;
+          font-size: 1em;
+        }
+        .total {
+          background: $sham-rock;
+          display: grid;
+          border-radius: 45px;
+          grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+          grid-gap: 1em;
+          align-items: baseline;
+          text-align: center;
+          border: 1px solid $bismark;
+          height: 50px;
+        }
+      }
+      .category-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 1em;
+        align-items: baseline;
+        padding: 1em;
+        .category-container {
+          display: flex;
+          flex-direction: column-reverse;
+          justify-content: center;
+          align-items: center;
+          padding: 1em;
+          .category-title {
+            text-align: center;            
+          }
+          .category-score {
+            margin-bottom: 1em;
+          }
+          
+        }
+      }
+    }
   }
-
-  .awssld__container {
-    height: auto;
-  }
-
-  .awssld__box {
-    // position: fixed;
-  }
-
-.slide {
-  padding: 0 10em;
 }
 
-
-#codescape-container > div > div > div > div.category-title {
-  text-align: center;
-}
-
-.role-container > div {
-  // justify-content: center !important;
-}
-
-.category-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 1em;
-  align-items: baseline;
-  padding: 1em;
-}
-
-.category-container {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  align-items: center;
-  padding: 1em;
-}
-
-.category-title {
-  text-align: center;
-}
-
-.category-score {
-  margin-bottom: 1em;
-}
-
-.role-score {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 1em;
-  padding: 2em;
-}
-
-.total {
-  background: var(--sham-rock);
-  display: grid;
-  border-radius: 45px;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-  grid-gap: 1em;
-  align-items: baseline;
-  text-align: center;
-  border: 1px solid var(--bismark);
-}
-
-#codescape-container > div > div.role-score > div:first-child {
-  display: inline-flex;
-  align-items: center;
-}
-
-#codescape-container > div > div.role-score > div:first-child > h1 {
-  margin: 0;
-  font-weight: 300;
-  font-size: 2.5em;
-}
-
-#codescape-container > div > div.role-score > div > div {
-  color: #fff;
-  font-size: 30px;
-  align-self: center;
-}
-
-#codescape-container > div > div.role-score > div > div:last-child {
-  background-color: var(--whisper);
-  color: var(--bismark);
-  line-height: 3em;
-  border-radius: 45px;
-  font-size: 1em;
-}
-
-@media (max-width: 1024px) {
-  #codescape-container > div > div.role-score > div > div:last-child {
+@media (max-width: 1000px) {
+  .role-score > div > div:last-child {
     display: none;
   }
 }
@@ -130,7 +76,11 @@
   height: 100px;
   .CircularProgressbar {
     &-path {
-      stroke: var(--bismark);
+      stroke: $bismark;
+      stroke-linecap: square;
+    }
+    &-text {
+      fill: $bismark;
     }
   }
 }

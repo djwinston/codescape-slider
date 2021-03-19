@@ -4,20 +4,19 @@ import RoleScore from './RoleScore'
 import CategoryContainer from './CategoryContainer'
 import { v4 as uuidv4 } from 'uuid'
 
-
 const Slide = ({ role }) => {
   let totalScore = 0
+  let divider = role.categories.length
   role.categories.forEach((cat) => {
     const { result } = cat.assessment_plan
-    totalScore += result
+    result && (totalScore += result)    
   })
-
+  
   return (
     <div
-      className="slide"
-      // style={{ width: 'max(50%, 1100px)', height: 'auto' }}
+      className="slide"      
     >
-      <RoleScore title={role.title} score={Math.round(totalScore)} />
+      <RoleScore title={role.title} score={Math.round(totalScore / divider)} />
       <div className="category-list">
         {role.categories.map((category) => (
           <CategoryContainer key={uuidv4()} category={category} />

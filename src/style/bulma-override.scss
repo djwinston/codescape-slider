@@ -1,0 +1,19 @@
+@import '~bulma/sass/utilities/functions.sass';
+
+
+$dim-gray: #676767;
+$bismark: #4a6572;
+$grey: #838383;
+$light-grey: #d3d2d2;
+$whisper: #eeeeee;
+$summer-sky: #1a9ddd;
+$white-smoke: #f6f9f6;
+$sham-rock: #1cd991;
+
+// Custom colors
+$custom-colors: (  
+  'bismark': (
+    $bismark,
+    findColorInvert($bismark),
+  ),
+);

@@ -1,2 +1,10 @@
+@import './variables.scss';
 @import './bulma.scss';
+@import './bulma-override.scss';
 @import './App.scss';
+@import '../../node_modules/swiper/swiper.scss';
+@import '../../node_modules/swiper/components/effect-flip/effect-flip.scss';
+// @import '../../node_modules/swiper/components/effect-coverflow/effect-coverflow.scss';
+// @import '../../node_modules/swiper/components/effect-cube/effect-cube.scss';
+// @import '../../node_modules/swiper/components/effect-fade/effect-fade.scss';
+@import '../../node_modules/react-circular-progressbar/dist/styles.css';

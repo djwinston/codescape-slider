@@ -2,10 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import ProgressProvider from './ProgressProvider'
+import { checkNan } from '../utils/helpers'
 
 const CategoryContainer = ({ category }) => {
   const { title, result } = category.assessment_plan
-  const formatResult = Math.round(result)
+  const roundResult = Math.round(result)
+  const formatResult =  checkNan(roundResult)
+  
   return (
     <div className="category-container">
       <div className="category-title">{title}</div>
