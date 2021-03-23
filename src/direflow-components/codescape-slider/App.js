@@ -10,11 +10,12 @@ import Slide from "./components/Slide";
 // import { roles as mock } from './data/response.js'
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectFlip, Navigation, Pagination } from "swiper";
-import Loader from './components/Loader'
+import Loader from "./components/Loader";
 
 SwiperCore.use([EffectFlip, Navigation, Pagination]);
 
 const App = () => {
+  
   return (
     <Styled styles={theme}>
       <div id="codescape-container">
@@ -25,7 +26,11 @@ const App = () => {
                 if (error) {
                   return <AuthError />;
                 } else if (isLoading) {
-                  return <div><Loader/></div>;
+                  return (
+                    <div>
+                      <Loader />
+                    </div>
+                  );
                 } else if (response !== null) {
                   // console.log('data', response.data.data.roles)
 
@@ -57,7 +62,7 @@ const App = () => {
               }}
             </Get>
           </AxiosProvider>
-        </div>        
+        </div>
       </div>
     </Styled>
   );

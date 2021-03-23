@@ -1,6 +1,9 @@
 #codescape-container {
   font-family: "Roboto";
   color: $grey;
+  .auth {
+    line-height: 34px;
+  }
   .spinner-loader {
     display: flex;
     justify-content: center;

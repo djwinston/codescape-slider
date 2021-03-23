@@ -17,7 +17,7 @@ const AuthError = () => {
             value="Connect to Codescape"
             name="Submit"
             id="submit-button"
-            className="button is- is-rounded"
+            className="button is- is-rounded auth"
           />
         </form>
       </div>

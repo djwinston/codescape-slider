@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { checkNan } from '../utils/helpers'
+import useInterval from '../hooks/useInterval'
+
 
 const RoleScore = ({ title, score }) => {
+  const [counter, setCounter] = useState(0);
   const formatScore = checkNan(score)
+
+  useInterval(() => {    
+    if(counter === formatScore) {
+      return
+    }
+    setCounter(counter + 1);
+  }, 100);
+  
+    
   return (
     <div className="role-score">
       <div>
         <h1>{title}</h1>
       </div>
       <div className="total">
-        <div className="totalCounter">{formatScore}%</div>
+        <div className="totalCounter">{counter}%</div>
         <div>out of 100</div>
       </div>
     </div>
