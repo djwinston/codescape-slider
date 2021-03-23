@@ -1,6 +1,44 @@
 #codescape-container {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   color: $grey;
+  .spinner-loader {
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+    svg {
+      width: 100px;
+      height: 100px;
+      margin: 20px;
+      display: inline-block;
+      align-self: center;
+    }
+  }
+  .role-container {
+    .swiper-container {
+      .swiper-button-next,
+      .swiper-button-prev {
+        font-size: 50px;
+        &:hover {
+          color: $sham-rock;
+        }
+      }
+      .swiper-button-next {
+        &::after {
+          content: "❯";
+        }
+      }
+      .swiper-button-prev {
+        &::after {
+          content: "❮";
+        }
+      }
+      .swiper-pagination {
+        .swiper-pagination-bullet-active {
+          background: $sham-rock;
+        }
+      }
+    }
+  }
   .slide-container {
     .slide {
       .role-score {
@@ -9,8 +47,8 @@
         grid-gap: 1em;
         padding: 2em;
         div:first-child {
-          display: inline-flex;
-          align-items: center;
+          // display: inline-flex;
+          // align-items: center;
         }
         div:first-child > h1 {
           margin: 0;
@@ -39,6 +77,9 @@
           text-align: center;
           border: 1px solid $bismark;
           height: 50px;
+          div:last-child {
+            height: 100%;
+          }
         }
       }
       .category-list {
@@ -54,12 +95,11 @@
           align-items: center;
           padding: 1em;
           .category-title {
-            text-align: center;            
+            text-align: center;
           }
           .category-score {
             margin-bottom: 1em;
           }
-          
         }
       }
     }

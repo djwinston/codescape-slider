@@ -1,17 +1,18 @@
-import React from 'react'
+import React from "react";
 import {
   /* EventContext, */ Styled /* , useExternalSource */,
-} from 'direflow-component'
-import theme from '../../style/index.scss'
-import { AxiosProvider, Get } from 'react-axios'
-import { axiosInstance, CODESCAPE_API } from './config/auth'
-import AuthError from './components/AuthError'
-import Slide from './components/Slide'
+} from "direflow-component";
+import theme from "../../style/index.scss";
+import { AxiosProvider, Get } from "react-axios";
+import { axiosInstance, CODESCAPE_API } from "./config/auth";
+import AuthError from "./components/AuthError";
+import Slide from "./components/Slide";
 // import { roles as mock } from './data/response.js'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { EffectFlip } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { EffectFlip, Navigation, Pagination } from "swiper";
+import Loader from './components/Loader'
 
-SwiperCore.use([EffectFlip]);
+SwiperCore.use([EffectFlip, Navigation, Pagination]);
 
 const App = () => {
   return (
@@ -22,20 +23,22 @@ const App = () => {
             <Get url={CODESCAPE_API}>
               {(error, response, isLoading /* , makeRequest, axios */) => {
                 if (error) {
-                  return <AuthError />
+                  return <AuthError />;
                 } else if (isLoading) {
-                  return <div>Loading...</div>
+                  return <div><Loader/></div>;
                 } else if (response !== null) {
                   // console.log('data', response.data.data.roles)
 
-                  const { roles } = response.data.data
+                  const { roles } = response.data.data;
 
                   return (
                     <Swiper
+                      navigation
+                      pagination={{ clickable: true }}
                       effect="flip"
                       spaceBetween={50}
                       slidesPerView={1}
-                      onSlideChange={() => console.log('slide change')}
+                      onSlideChange={() => console.log("slide change")}
                       onSwiper={(swiper) => console.log(swiper)}
                     >
                       {roles.map((el) => {
@@ -45,19 +48,19 @@ const App = () => {
                               <Slide role={el} />
                             </div>
                           </SwiperSlide>
-                        )
+                        );
                       })}
                     </Swiper>
-                  )
+                  );
                 }
-                return <div>Default message before request is made.</div>
+                return <div>Default message before request is made.</div>;
               }}
             </Get>
           </AxiosProvider>
-        </div>
+        </div>        
       </div>
     </Styled>
-  )
-}
+  );
+};
 
-export default App
+export default App;

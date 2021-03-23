@@ -2,10 +2,10 @@ import React from 'react'
 
 const AuthError = () => {
   return (
-    <section className="hero is-small is-warning">
+    <section className="hero is-small is-info">
       <div className="hero-body">
-        <p className="title">Your scores are not available</p>
-        <p className="subtitle is-size-6">
+        <p className="title my-4">Your scores are not available</p>
+        <p className="subtitle is-size-6 my-2">
           If you want to get your result please follow the link below
         </p>
         <form
