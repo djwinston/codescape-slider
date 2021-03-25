@@ -15,7 +15,7 @@ const Loader = () => {
         xmlSpace="preserve"
       >
         <rect
-          fill="#1cd991"
+          fill="##1a9ddd"
           width="3"
           height="100"
           transform="translate(0) rotate(180 3 50)"
@@ -30,7 +30,7 @@ const Loader = () => {
         </rect>
         <rect
           x="17"
-          fill="#1cd991"
+          fill="##1a9ddd"
           width="3"
           height="100"
           transform="translate(0) rotate(180 20 50)"
@@ -46,7 +46,7 @@ const Loader = () => {
         </rect>
         <rect
           x="40"
-          fill="#1cd991"
+          fill="##1a9ddd"
           width="3"
           height="100"
           transform="translate(0) rotate(180 40 50)"
@@ -62,7 +62,7 @@ const Loader = () => {
         </rect>
         <rect
           x="60"
-          fill="#1cd991"
+          fill="##1a9ddd"
           width="3"
           height="100"
           transform="translate(0) rotate(180 58 50)"
@@ -78,7 +78,7 @@ const Loader = () => {
         </rect>
         <rect
           x="80"
-          fill="#1cd991"
+          fill="##1a9ddd"
           width="3"
           height="100"
           transform="translate(0) rotate(180 76 50)"

@@ -22,7 +22,7 @@
       .swiper-button-prev {
         font-size: 50px;
         &:hover {
-          color: $sham-rock;
+          color: $summer-sky;
         }
       }
       .swiper-button-next {
@@ -37,7 +37,7 @@
       }
       .swiper-pagination {
         .swiper-pagination-bullet-active {
-          background: $sham-rock;
+          background: $summer-sky;
         }
       }
     }
@@ -55,7 +55,7 @@
           font-size: 2.5em;
         }        
         .total {
-          background: $sham-rock;
+          background: $summer-sky;
           display: grid;
           border-radius: 45px;
           grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
