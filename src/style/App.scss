@@ -48,28 +48,12 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         grid-gap: 1em;
-        padding: 2em;
-        div:first-child {
-          // display: inline-flex;
-          // align-items: center;
-        }
+        padding: 2em;        
         div:first-child > h1 {
           margin: 0;
           font-weight: 300;
           font-size: 2.5em;
-        }
-        div > div {
-          color: #fff;
-          font-size: 30px;
-          align-self: center;
-        }
-        div > div:last-child {
-          background-color: $whisper;
-          color: $bismark;
-          line-height: 3em;
-          border-radius: 45px;
-          font-size: 1em;
-        }
+        }        
         .total {
           background: $sham-rock;
           display: grid;
@@ -80,8 +64,16 @@
           text-align: center;
           border: 1px solid $bismark;
           height: 50px;
-          div:last-child {
-            height: 100%;
+          .totalCounter{
+            color: $white;
+          font-size: 40px;
+          align-self: center;
+          font-weight: 600;
+          line-height: normal;
+          }
+          div:last-child {           
+            color: $white;            
+            align-self: center;
           }
         }
       }

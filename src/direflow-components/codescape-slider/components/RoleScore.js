@@ -23,7 +23,7 @@ const RoleScore = ({ title, score }) => {
       </div>
       <div className="total">
         <div className="totalCounter">{counter}%</div>
-        <div>out of 100</div>
+        <div className='is-size-5'>Total Score</div>
       </div>
     </div>
   )

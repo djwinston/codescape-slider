@@ -31,8 +31,7 @@ const App = () => {
                       <Loader />
                     </div>
                   );
-                } else if (response !== null) {
-                  // console.log('data', response.data.data.roles)
+                } else if (response !== null) {                  
 
                   const { roles } = response.data.data;
 
@@ -43,8 +42,8 @@ const App = () => {
                       effect="flip"
                       spaceBetween={50}
                       slidesPerView={1}
-                      onSlideChange={() => console.log("slide change")}
-                      onSwiper={(swiper) => console.log(swiper)}
+                      onSlideChange={() => {}}
+                      onSwiper={(/* swiper */) => {}}
                     >
                       {roles.map((el) => {
                         return (
